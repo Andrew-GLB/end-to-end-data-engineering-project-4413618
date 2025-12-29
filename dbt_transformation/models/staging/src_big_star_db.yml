@@ -1,0 +1,19 @@
+version: 2
+
+sources:
+  - name: raw_data
+    database: "big-star-collectibles-482621"
+    schema: raw_data
+    loaded_at_field: "SAFE.PARSE_TIMESTAMP('%Y-%m-%dT%H:%M:%E*SZ', _ab_cdc_updated_at)"
+    freshness:
+      warn_after:
+        count: 24
+        period: hour
+      error_after:      # <--- Agrega esto para que el esquema sea válido
+        count: 48
+        period: hour
+    tables:
+      - name: customers
+      - name: order_items
+      - name: orders
+      - name: products
